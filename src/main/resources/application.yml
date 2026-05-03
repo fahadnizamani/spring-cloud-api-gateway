@@ -7,14 +7,14 @@ spring:
 
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
   cloud:
     gateway:
       routes:
         - id: auth-route
-          uri: http://localhost:8080
+          uri: ${BACKEND_URL:http://localhost:8080}
           predicates:
             - Path=/auth/**
           filters:
@@ -24,7 +24,7 @@ spring:
                 redis-rate-limiter.burstCapacity: 10
 
         - id: api-route
-          uri: http://localhost:8080
+          uri: ${BACKEND_URL:http://localhost:8080}
           predicates:
             - Path=/api/**
           filters:
@@ -49,7 +49,7 @@ spring:
             allowCredentials: true
 
 jwt:
-  secret: mysecretkeymysecretkeymysecretkey123
+  secret: ${JWT_SECRET:mysecretkeymysecretkeymysecretkey123}
 
 logging:
   level:
