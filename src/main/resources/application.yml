@@ -20,8 +20,14 @@ spring:
           filters:
             - name: RequestRateLimiter
               args:
+                key-resolver: "#{@ipKeyResolver}"
                 redis-rate-limiter.replenishRate: 5
                 redis-rate-limiter.burstCapacity: 10
+
+        - id: product-route
+          uri: ${PRODUCT_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/products/**
 
         - id: api-route
           uri: ${BACKEND_URL:http://localhost:8080}
@@ -30,6 +36,7 @@ spring:
           filters:
             - name: RequestRateLimiter
               args:
+                key-resolver: "#{@userKeyResolver}"
                 redis-rate-limiter.replenishRate: 20
                 redis-rate-limiter.burstCapacity: 40
 
