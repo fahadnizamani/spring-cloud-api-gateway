@@ -35,6 +35,11 @@ spring:
                 name: productServiceCircuitBreaker
                 fallbackUri: forward:/fallback/products
 
+        - id: order-route
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/orders/**
+
         - id: api-route
           uri: ${BACKEND_URL:http://localhost:8080}
           predicates:
@@ -82,7 +87,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,circuitbreakers,circuitbreakerevents
+        include: health,info,metrics,prometheus,circuitbreakers,circuitbreakerevents
 
   endpoint:
     health:
