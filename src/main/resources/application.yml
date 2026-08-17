@@ -97,6 +97,15 @@ management:
     circuitbreakers:
       enabled: true
 
+  tracing:
+    sampling:
+      probability: 1.0
+
+  otlp:
+    tracing:
+      endpoint: http://localhost:4317
+      transport: grpc
+
 jwt:
   secret: ${JWT_SECRET:mysecretkeymysecretkeymysecretkey123}
 
