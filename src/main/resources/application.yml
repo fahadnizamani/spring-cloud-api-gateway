@@ -21,8 +21,8 @@ spring:
             - name: RequestRateLimiter
               args:
                 key-resolver: "#{@ipKeyResolver}"
-                redis-rate-limiter.replenishRate: 5
-                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 5
 
         - id: product-route
           #uri: ${PRODUCT_SERVICE_URL:http://localhost:8082}
@@ -57,6 +57,9 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:3000"
+              - "http://localhost:3001"
+              - "http://127.0.0.1:3000"
+              - "http://127.0.0.1:3001"
             allowedMethods:
               - GET
               - POST
