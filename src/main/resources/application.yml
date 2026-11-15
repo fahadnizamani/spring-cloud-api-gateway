@@ -40,6 +40,11 @@ spring:
           predicates:
             - Path=/api/orders/**
 
+        - id: payment-route
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payments/**
+
         - id: api-route
           uri: ${BACKEND_URL:http://localhost:8080}
           predicates:
